@@ -1,4 +1,4 @@
-# fibonacciCalculator Intructions to run the Fibonacci Calculator in docker 
+# fibonacciCalculator Instructions to run the Fibonacci Calculator in docker 
 1.-Download the repository fibonacciCalculator
 2.-move to folder /calculatorfb
 3.-Execute: docker build -t calculatorfb .
