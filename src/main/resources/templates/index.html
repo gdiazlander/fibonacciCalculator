@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title>Fibonacci Calculator </title>
+    <meta charset = "UTF-8">
+    <script>
+			var baseurl = "http://localhost:8080/getAllResults";
+
+			function loadResults(){
+				var xmlhttp = new XMLHttpRequest();
+				xmlhttp.open("GET",baseurl,true);
+				xmlhttp.onreadystatechange = function(){
+					if(xmlhttp.readyState === 4 && xmlhttp.status === 200){
+						var results = JSON.parse(xmlhttp.responseText);
+						var tbltop ="<table><tr><th>Number</th><th>Result</th></tr>";
+						var main = "";
+						for (i=0; i< results.length; i++){
+							main += "<tr><td>"+results[i].number+"</td><td>"+results[i].result+"</td></tr>";
+						}
+						var tblbotton = "</table>";
+						var tbl = tbltop + main + tblbotton;
+						document.getElementById("resultinfo").innerHTML = tbl;
+					}
+				};
+				xmlhttp.send();
+
+			}
+			window.onload = function(){
+				document.getElementById("Save").onclick = function fun(){
+					var x = document.forms["myForm"]["fbnumber"].value;
+					var Url = "http://localhost:8080/calculate?number="+x;
+					var xhr = new XMLHttpRequest();
+					xhr.open('POST',Url,true);
+					xhr.send();
+					window.location.reload();
+					xhr.onreadystatechange = processRequest;
+
+				}
+				loadResults();
+
+			}
+
+		</script>
+
+</head>
+
+<body>
+<form name="myForm">
+    <input type="label" value="Number:" />
+
+    <input type="text" name="fbnumber" />
+    <input type="button" id="Save" onclick="f1()" value="Submit" />
+</form>
+
+<div id="resultinfo"> </div>
+</body>
+</html>
